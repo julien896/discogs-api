@@ -4,11 +4,11 @@ import './App.css'
 import { api } from './utils/api'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(null)
 
   useEffect(() => {
-    api.get('artists/1')
-      .then(res => console.log(res))
+    api.get(`database/search?title=nirvana`)
+      .then(res => setCount(res.data))
   }, [])
   
 
@@ -24,9 +24,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+          count is {JSON.stringify(count)}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
