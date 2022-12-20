@@ -5,6 +5,7 @@ import { RecordList } from './components/RecordList/RecordList'
 import { RecordsService } from './services/records_service'
 import { IRecord } from './models/Record';
 import { SearchBar } from './components/SearchBar/SearchBar'
+import { Collection } from './components/Collection/Collection'
 
 const records = new RecordsService()
 
@@ -14,6 +15,7 @@ export const Home = () => {
 
   const getAllMutation = useMutation(records.getAll)
   const getByIdMutation = useMutation(records.getById)
+  const addReleaseMutation = useMutation(records.addRelease)
 
   const handleSubmit = () => {
     getAllMutation.mutateAsync(search)
@@ -33,6 +35,13 @@ export const Home = () => {
       .catch(e => console.error(e))
   }
 
+  const addRelease = (id: number) => {
+    addReleaseMutation.mutateAsync(id)
+      .then(() => { 
+        getAllMutation.mutateAsync(search)
+      })
+  }
+
   return ( 
     <PageBody>
       <SearchBar 
@@ -47,7 +56,9 @@ export const Home = () => {
           showModal={showModal}
           selectedRecord={selectedRecord}
           isModalOpen={isModalOpen}
+          addRelease={addRelease}
         />
+        <Collection />
         <div/>
       </PageBody.Container>
     </PageBody>

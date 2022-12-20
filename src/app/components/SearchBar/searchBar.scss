@@ -1,9 +1,11 @@
 .bar-container {
-    width: 100%;
-    padding: 0 15px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
 
     & input {
         height: 40px;
+        width: 200px;
     }
 
     & .ant-input-search-button {
