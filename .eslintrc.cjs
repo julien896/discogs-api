@@ -28,6 +28,7 @@ module.exports = {
     "import/no-unresolved": ["off"],
     "indent": ["error", 2],
     "import/named": ["off"],
+    "react/display-name": ["off"],
     "react-hooks/exhaustive-deps": ["off"]
   }
 }

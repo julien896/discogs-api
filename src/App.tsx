@@ -1,7 +1,6 @@
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
-import { RecordsService } from './app/services/records_service'
-import './App.css'
-import { Example } from './Example'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Home } from './app/index';
+import './styles/index.scss'
 
 function App() {
 
@@ -17,9 +16,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <Example />
-      </div>
+      <Home />
     </QueryClientProvider>
   )
 }

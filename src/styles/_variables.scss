@@ -1,0 +1,15 @@
+$gray-500: #868eb7;
+$gray-400: #a1acc2;
+$gray-300: #cad7e6;
+$gray-200: #e4edf0;
+
+.card { 
+  background: white;
+}
+
+.container { 
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   column-gap: 10px;
+   row-gap: 10px;
+}
