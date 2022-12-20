@@ -4,6 +4,7 @@ import { PageBody } from '../layout/PageBody'
 import { RecordList } from './components/RecordList/RecordList'
 import { RecordsService } from './services/records_service'
 import { IRecord } from './models/Record';
+import { SearchBar } from './components/SearchBar/SearchBar'
 
 const records = new RecordsService()
 
@@ -34,15 +35,21 @@ export const Home = () => {
 
   return ( 
     <PageBody>
-      <input onChange={e => handleSearch(e.target.value)} />
-      <button onClick={handleSubmit}>Busca!!!</button>
-      <RecordList 
-        records={getAllMutation.data ?? []}
-        handleSelect={handleSelect}
-        showModal={showModal}
-        selectedRecord={selectedRecord}
-        isModalOpen={isModalOpen}
+      <SearchBar 
+        handleSearch={handleSearch}
+        handleSubmit={handleSubmit}
+        isLoading={getAllMutation.isLoading}
       />
+      <PageBody.Container className='main-content'>
+        <RecordList 
+          records={getAllMutation.data ?? []}
+          handleSelect={handleSelect}
+          showModal={showModal}
+          selectedRecord={selectedRecord}
+          isModalOpen={isModalOpen}
+        />
+        <div/>
+      </PageBody.Container>
     </PageBody>
   );
 }
