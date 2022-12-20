@@ -16,5 +16,15 @@ export class RecordsService {
         return a.id < b.id 
       }).map(getRecordsMapper) 
     )
-  }     
+  } 
+
+  getById = async(id: number) => {
+    const res = await api.get(`releases/${id}`)
+    return getRecordsMapper(res.data)
+  }
+  
+
+  /*   @GET /users/{username}/collection/folders/{folder_id}/releases
+  @Post /users/{username}/collection/folders/{folder_id}/releases/{release_id */
+
 }
