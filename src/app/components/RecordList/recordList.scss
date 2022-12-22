@@ -5,7 +5,30 @@
 
     & .ant-pagination {
         padding-top: 20px;
-    }
+        .page-link {
+          border-color: $blue;
+          color: $principal;
+          outline: none;
+          margin-bottom: rem(10);
+          &:hover,
+          &:focus {
+            background: $gray-100;
+          }
+        }
+        .page-item {
+          &.disabled {
+            .page-link {
+              background: $gray-100;
+            }
+          }
+          &.active {
+            .page-link {
+              background: $principal;
+              border-color: $principal;
+            }
+          }
+        }
+      }
 }
 
 .list {
@@ -23,7 +46,7 @@
     & .ant-ribbon {
         font-size: 12px;
         cursor: pointer;
-        background-color: $blue;
+        background-color: $red;
 
         &:hover {
             transition: cubic-bezier(0.075, 0.82, 0.165, 1);

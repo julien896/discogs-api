@@ -1,15 +1,19 @@
 import { api } from '../../utils/api';
 import { Record, IRecord } from '../models/Record';
 import { Favourite, IFavourite } from '../models/Favourite';
+import { IRecordFull, RecordFull } from '../models/RecordFull';
 
 export const getRecordsMapper = (x: IRecord): Record => new Record(x);
+
+export const getRecordFullMapper = (x: IRecordFull): RecordFull => new RecordFull(x);
 
 export const getCollectionMapper = (x: IFavourite): Favourite => new Favourite(x);
 
 export class RecordsService {    
   keys = {
     records: () => ["records"],
-    collection: () => ["collection"]
+    collection: () => ["collection"],
+    record: (id: number) => ["collection", id]
   };
   
   getAll = async(x: { title: string, page: number }) => {
@@ -24,7 +28,7 @@ export class RecordsService {
 
   getById = async(id: number) => {
     const res = await api.get(`releases/${id}`)
-    return getRecordsMapper(res.data)
+    return getRecordFullMapper(res.data)
   }
 
   getUserCollection = async() => {

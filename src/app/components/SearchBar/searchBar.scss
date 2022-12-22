@@ -6,9 +6,20 @@
     & input {
         height: 40px;
         width: 200px;
+
+        &:focus, &:hover {
+            border-color: $red !important;
+        }
     }
 
     & .ant-input-search-button {
         height: 40px;
+
+        background-color: $red !important;
+        border-color: $red !important;
+
+        &:hover{
+            background-color: rgb(184, 12, 9, 0.7) !important;
+        }
     }
 }

@@ -6,6 +6,7 @@ import { RecordsService } from './services/records_service'
 import { IRecord } from './models/Record';
 import { SearchBar } from './components/SearchBar/SearchBar'
 import { Collection } from './components/Collection/Collection'
+import { IRecordFull } from './models/RecordFull';
 
 const records = new RecordsService()
 
@@ -16,16 +17,15 @@ export const Home = () => {
   const handleSearch = (value: string) => setSearch(value)
 
   const getAllMutation = useMutation(records.getAll)
-  const getByIdMutation = useMutation(records.getById)
+  const getByIdMutation = useMutation(["record"], records.getById)
   const addReleaseMutation = useMutation(records.updateUserCollection)
-
   const getCollectionQuery = useQuery(records.keys.collection(), () => records.getUserCollection())
 
   const handleSubmit = (page: number) => {
     getAllMutation.mutateAsync({ title: search, page: page })
   }
 
-  const [selectedRecord, setSelectedRecord] = useState<IRecord | null>(null)
+  const [selectedRecord, setSelectedRecord] = useState<IRecordFull | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => setIsModalOpen(!isModalOpen)

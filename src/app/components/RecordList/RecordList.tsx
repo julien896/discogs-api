@@ -6,12 +6,13 @@ import { Record } from '../Record/Record';
 import { useState } from 'react';
 
 import default_release from '../../../assets/default_release.png'
+import { IRecordFull } from '../../models/RecordFull';
 
 interface Props {
     records: IRecord[];
     handleSelect: (id: number) => void;
     showModal: () => void;
-    selectedRecord: IRecord | null;
+    selectedRecord: IRecordFull | null;
     isModalOpen: boolean;
     addRelease: (id:number) => void;
     pagination: any;
