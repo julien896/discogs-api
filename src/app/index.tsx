@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { PageBody } from '../layout/PageBody'
 import { RecordList } from './components/RecordList/RecordList'
 import { RecordsService } from './services/records_service'
@@ -11,14 +11,18 @@ const records = new RecordsService()
 
 export const Home = () => {
   const [search, setSearch] = useState('')
+  const currentPage = 1
+
   const handleSearch = (value: string) => setSearch(value)
 
   const getAllMutation = useMutation(records.getAll)
   const getByIdMutation = useMutation(records.getById)
-  const addReleaseMutation = useMutation(records.addRelease)
+  const addReleaseMutation = useMutation(records.updateUserCollection)
 
-  const handleSubmit = () => {
-    getAllMutation.mutateAsync(search)
+  const getCollectionQuery = useQuery(records.keys.collection(), () => records.getUserCollection())
+
+  const handleSubmit = (page: number) => {
+    getAllMutation.mutateAsync({ title: search, page: page })
   }
 
   const [selectedRecord, setSelectedRecord] = useState<IRecord | null>(null)
@@ -38,7 +42,7 @@ export const Home = () => {
   const addRelease = (id: number) => {
     addReleaseMutation.mutateAsync(id)
       .then(() => { 
-        getAllMutation.mutateAsync(search)
+        getAllMutation.mutateAsync({ title: search, page: currentPage })
       })
   }
 
@@ -46,19 +50,23 @@ export const Home = () => {
     <PageBody>
       <SearchBar 
         handleSearch={handleSearch}
-        handleSubmit={handleSubmit}
+        handleSubmit={() => handleSubmit(currentPage)}
         isLoading={getAllMutation.isLoading}
       />
       <PageBody.Container className='main-content'>
         <RecordList 
-          records={getAllMutation.data ?? []}
+          records={getAllMutation.data?.records ?? []}
+          pagination={getAllMutation.data?.pagination}
+          handleSubmit={(page: number) => handleSubmit(page)}
           handleSelect={handleSelect}
           showModal={showModal}
           selectedRecord={selectedRecord}
           isModalOpen={isModalOpen}
           addRelease={addRelease}
         />
-        <Collection />
+        <Collection 
+          collection={getCollectionQuery.data ?? []}
+        />
         <div/>
       </PageBody.Container>
     </PageBody>

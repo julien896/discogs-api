@@ -1,4 +1,14 @@
 .list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .ant-pagination {
+        padding-top: 20px;
+    }
+}
+
+.list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 15px;
