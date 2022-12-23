@@ -1,4 +1,6 @@
-export interface IRecordFull {
+import { Artist } from "./Artists";
+
+export interface IRecordDetails {
     id:                 number;
     status:             string;
     year:               number;
@@ -33,17 +35,6 @@ export interface IRecordFull {
     images:             Image[];
     thumb:              string;
     blocked_from_sale:  boolean;
-}
-
-export interface Artist {
-    name:          string;
-    anv:           string;
-    join:          string;
-    role:          string;
-    tracks:        string;
-    id:            number;
-    resource_url:  string;
-    thumbnail_url: string;
 }
 
 export interface Community {
@@ -108,7 +99,7 @@ export interface Video {
 }
 
 
-export class RecordFull {
+export class RecordDetails {
   id:                 number;
   status:             string;
   year:               number;
@@ -144,7 +135,7 @@ export class RecordFull {
   thumb:              string;
   blocked_from_sale:  boolean;
 
-  constructor(args: IRecordFull) {
+  constructor(args: IRecordDetails) {
     this.id = args.id;
     this.status = args.status;
     this.year = args.year;

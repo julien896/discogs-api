@@ -1,11 +1,11 @@
-import { api } from '../../utils/api';
+import { api } from '../../shared/api';
 import { Record, IRecord } from '../models/Record';
 import { Favourite, IFavourite } from '../models/Favourite';
-import { IRecordFull, RecordFull } from '../models/RecordFull';
+import { IRecordDetails, RecordDetails } from '../models/RecordDetails';
 
 export const getRecordsMapper = (x: IRecord): Record => new Record(x);
 
-export const getRecordFullMapper = (x: IRecordFull): RecordFull => new RecordFull(x);
+export const getRecordDetailsMapper = (x: IRecordDetails): RecordDetails => new RecordDetails(x);
 
 export const getCollectionMapper = (x: IFavourite): Favourite => new Favourite(x);
 
@@ -16,8 +16,8 @@ export class RecordsService {
     record: (id: number) => ["collection", id]
   };
   
-  getAll = async(x: { title: string, page: number }) => {
-    const res = await api.get(`database/search?title=${x.title}&page=${x.page}&per_page=20`)
+  getAll = async(params: { title: string, page: number }) => {
+    const res = await api.get(`database/search?title=${params.title}&page=${params.page}&per_page=20`)
     return ({ 
       records: res.data.results.sort((a: IRecord, b: IRecord) => {
         return a.id < b.id 
@@ -28,7 +28,7 @@ export class RecordsService {
 
   getById = async(id: number) => {
     const res = await api.get(`releases/${id}`)
-    return getRecordFullMapper(res.data)
+    return getRecordDetailsMapper(res.data)
   }
 
   getUserCollection = async() => {

@@ -6,7 +6,7 @@ import { RecordsService } from './services/records_service'
 import { IRecord } from './models/Record';
 import { SearchBar } from './components/SearchBar/SearchBar'
 import { Collection } from './components/Collection/Collection'
-import { IRecordFull } from './models/RecordFull';
+import { IRecordDetails } from './models/RecordDetails';
 
 const records = new RecordsService()
 
@@ -25,7 +25,7 @@ export const Home = () => {
     getAllMutation.mutateAsync({ title: search, page: page })
   }
 
-  const [selectedRecord, setSelectedRecord] = useState<IRecordFull | null>(null)
+  const [selectedRecord, setSelectedRecord] = useState<IRecordDetails | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => setIsModalOpen(!isModalOpen)
@@ -55,6 +55,8 @@ export const Home = () => {
       />
       <PageBody.Container className='main-content'>
         <RecordList 
+          getAllLoading={getAllMutation.isLoading}
+          findOneLoading={getByIdMutation.isLoading}
           records={getAllMutation.data?.records ?? []}
           pagination={getAllMutation.data?.pagination}
           handleSubmit={(page: number) => handleSubmit(page)}
@@ -66,6 +68,11 @@ export const Home = () => {
         />
         <Collection 
           collection={getCollectionQuery.data ?? []}
+          findOneLoading={getByIdMutation.isLoading}
+          handleSelect={handleSelect}
+          showModal={showModal}
+          selectedRecord={selectedRecord}
+          isModalOpen={isModalOpen}
         />
         <div/>
       </PageBody.Container>

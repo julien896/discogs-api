@@ -1,3 +1,5 @@
+import { Artist } from "./Artists";
+
 export interface IRecord {
     id: number;
     cover_image: string;
@@ -5,6 +7,7 @@ export interface IRecord {
     thumb: string;
     title: string;
     country: string;
+    artists: Artist[];
     format: string[];
     uri: string;
     community: ICommunity;
@@ -34,6 +37,7 @@ export class Record {
   thumb: string;
   title: string;
   country: string;
+  artists: Artist[];
   format: string[];
   uri: string;
   community: ICommunity;
@@ -52,6 +56,7 @@ export class Record {
     this.thumb = args.thumb
     this.title = args.title
     this.country = args.country
+    this.artists = args.artists
     this.format = args.format
     this.uri = args.uri
     this.community = args.community
